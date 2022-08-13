@@ -16,6 +16,9 @@ public class UserAction {
     private String product;
     private BigDecimal price;
 
+    public UserAction() {
+    }
+
     public UserAction(String userId, Integer userNo, String action, String product, BigDecimal price) {
         this.userId = userId;
         this.userNo = userNo;
