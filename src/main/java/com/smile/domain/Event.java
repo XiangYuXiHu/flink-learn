@@ -1,12 +1,14 @@
 package com.smile.domain;
 
+import java.io.Serializable;
+
 /**
  * @Description
  * @ClassName Event
  * @Author smile
  * @date 2022.08.08 22:18
  */
-public class Event {
+public class Event implements Serializable {
 
     private String user;
     private String url;

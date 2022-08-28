@@ -13,6 +13,9 @@ import org.apache.flink.streaming.api.functions.sink.filesystem.rollingpolicies.
 import java.util.concurrent.TimeUnit;
 
 /**
+ * * link 为此专门提供了一个流式文件系统的连接器：StreamingFileSink，它继承自抽象类RichSinkFunction，
+ * * 而且集成了 Flink 的检查点（checkpoint）机制，用来保证精确一次（exactly once）的一致性语义。
+ *
  * @Description
  * @ClassName SinkFile
  * @Author smile

@@ -2,12 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.9</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+
     <groupId>com.smile</groupId>
     <artifactId>flink-learn</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -20,7 +15,7 @@
         <scala.binary.version>2.11</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <log4j.version>2.12.1</log4j.version>
+        <log4j.version>2.17.2</log4j.version>
         <httpclient.version>4.5.2</httpclient.version>
     </properties>
     <dependencies>
@@ -77,6 +72,7 @@
             <groupId>org.apache.bahir</groupId>
             <artifactId>flink-connector-redis_${scala.binary.version}</artifactId>
             <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

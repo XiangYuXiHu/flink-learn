@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import java.util.Properties;
 
 /**
+ *
  * @Description
  * @ClassName KafkaSink
  * @Author smile
