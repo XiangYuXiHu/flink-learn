@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @Author smile
  * @date 2022.08.14 10:01
  */
-public class MyRedisSource implements SourceFunction<Event> {
+public class MySource implements SourceFunction<Event> {
 
     private Boolean isRunning = true;
 

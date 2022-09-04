@@ -1,7 +1,7 @@
 package com.smile.sink;
 
 import com.smile.domain.Event;
-import com.smile.source.MyRedisSource;
+import com.smile.source.MySource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.redis.RedisSink;
 import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolConfig;
@@ -21,7 +21,7 @@ public class MyRedisSink {
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
 
         FlinkJedisPoolConfig jedisPoolConfig = new FlinkJedisPoolConfig.Builder().setHost("localhost").build();
-        environment.addSource(new MyRedisSource()).addSink(new RedisSink<>(jedisPoolConfig, new MyRedisMapper()));
+        environment.addSource(new MySource()).addSink(new RedisSink<>(jedisPoolConfig, new MyRedisMapper()));
 
         environment.execute("redis sink");
     }
