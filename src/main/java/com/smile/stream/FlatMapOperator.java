@@ -17,7 +17,8 @@ public class FlatMapOperator {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<Event> eventStream = environment.fromElements(new Event("jack", "http://www.bd.com", 1000L),
+        DataStreamSource<Event> eventStream = environment.fromElements(
+                new Event("jack", "http://www.bd.com", 1000L),
                 new Event("jim", "http://abc.com", 1001L));
 
         eventStream.flatMap(new FlatMapFunction<Event, String>() {

@@ -1,7 +1,6 @@
 package com.smile.stream;
 
-import com.smile.domain.Event;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import com.smile.source.MyParallelSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 /**
@@ -16,9 +15,11 @@ public class MySourceFunction {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
-        DataStreamSource<Event> source = environment.addSource(new MyParallelSource()).setParallelism(2);
-        source.print();
+        parallelStream(environment);
+    }
 
-        environment.execute("time");
+    public static void parallelStream(StreamExecutionEnvironment env) throws Exception {
+        env.addSource(new MyParallelSource()).setParallelism(2).print();
+        env.execute("parallel stream");
     }
 }

@@ -17,21 +17,24 @@ public class CoMapTest {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<Tuple2<String, Integer>> tuple2DataStreamSource = env.fromElements(new Tuple2<>("a", 2), new Tuple2<>("b", 5));
-        DataStreamSource<Integer> dataStreamSource = env.fromElements(2, 3, 6);
-        ConnectedStreams<Tuple2<String, Integer>, Integer> connect = tuple2DataStreamSource.connect(dataStreamSource);
-        connect.map(new CoMapFunction<Tuple2<String, Integer>, Integer, Integer>() {
-            @Override
-            public Integer map1(Tuple2<String, Integer> value) throws Exception {
-                return value.f1;
-            }
+        coMapStream(env);
+    }
 
+    public static void coMapStream(StreamExecutionEnvironment env) throws Exception {
+        DataStreamSource<Integer> stream1 = env.fromElements(1, 2, 3);
+        DataStreamSource<Tuple2<String, Integer>> stream2 = env.fromElements(Tuple2.of("jim", 4), Tuple2.of("lucy", 5), Tuple2.of("lily", 6));
+        stream1.connect(stream2).map(new CoMapFunction<Integer, Tuple2<String, Integer>, Integer>() {
             @Override
-            public Integer map2(Integer value) throws Exception {
+            public Integer map1(Integer value) throws Exception {
                 return value;
             }
-        }).map(x -> x * 100).print();
 
-        env.execute();
+            @Override
+            public Integer map2(Tuple2<String, Integer> value) throws Exception {
+                return value.f1;
+            }
+        }).map(e -> e * 100).print();
+
+        env.execute("co map stream");
     }
 }

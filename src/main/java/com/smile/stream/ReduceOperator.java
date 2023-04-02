@@ -31,15 +31,19 @@ public class ReduceOperator {
                 new UserAction("user1", 1293984000, "click", "甜瓜", BigDecimal.valueOf(12))
         ));
 
-        KeyedStream<UserAction, String> keyStream = source.keyBy((KeySelector<UserAction, String>) value -> value.getUserId());
-        SingleOutputStreamOperator<UserAction> result = keyStream.reduce(new ReduceFunction<UserAction>() {
-            @Override
-            public UserAction reduce(UserAction value1, UserAction value2) throws Exception {
-                value1.setPrice(value1.getPrice().add(value2.getPrice()));
-                return value1;
-            }
-        });
-        result.print();
+        reduceOperate(source);
         environment.execute("reduce");
+    }
+
+    public static void reduceOperate(DataStreamSource<UserAction> source) {
+        source.keyBy(UserAction::getUserId)
+                .reduce(new ReduceFunction<UserAction>() {
+                    @Override
+                    public UserAction reduce(UserAction value1, UserAction value2) throws Exception {
+                        value1.setPrice(value1.getPrice().add(value2.getPrice()));
+                        return value1;
+                    }
+                }).returns(UserAction.class)
+                .print();
     }
 }

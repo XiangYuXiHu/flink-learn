@@ -1,10 +1,7 @@
-package com.smile.stream;
+package com.smile.source;
 
 import com.smile.domain.Event;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.ParallelSourceFunction;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -14,11 +11,11 @@ import java.util.concurrent.TimeUnit;
  * 并行数据源
  *
  * @Description
- * @ClassName MySource
+ * @ClassName MyParallelSource
  * @Author smile
- * @date 2022.08.08 22:17
+ * @date 2023.04.02 07:09
  */
-class MyParallelSource implements ParallelSourceFunction<Event> {
+public class MyParallelSource implements ParallelSourceFunction<Event> {
 
     /**
      * 控制数据生成标识
@@ -37,11 +34,13 @@ class MyParallelSource implements ParallelSourceFunction<Event> {
      */
     @Override
     public void run(SourceContext<Event> ctx) throws Exception {
-        Random random = new Random();
         while (running) {
-            ctx.collect(new Event(users[random.nextInt(users.length)], urls[random.nextInt(urls.length)], Calendar.getInstance().getTimeInMillis()));
+            Random random = new Random();
+            String userName = users[random.nextInt(users.length)];
+            String url = urls[random.nextInt(urls.length)];
+            ctx.collect(new Event(userName, url, Calendar.getInstance().getTimeInMillis()));
+            TimeUnit.SECONDS.sleep(1);
         }
-        TimeUnit.SECONDS.sleep(1);
     }
 
     /**

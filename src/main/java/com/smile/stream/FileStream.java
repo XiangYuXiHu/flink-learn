@@ -1,8 +1,10 @@
 package com.smile.stream;
 
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.io.TextInputFormat;
 import org.apache.flink.core.fs.Path;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.FileProcessingMode;
 
@@ -23,11 +25,16 @@ public class FileStream {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        String path = "d:/flink/data/hello.txt";
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
-        environment.readFile(new TextInputFormat(new Path(path)),
-                path, FileProcessingMode.PROCESS_ONCE,
-                1, BasicTypeInfo.STRING_TYPE_INFO).print();
-        environment.execute("file stream");
+        readFile(environment);
+    }
+
+    public static void readFile(StreamExecutionEnvironment env) throws Exception {
+        String path = "src/main/resources/hello.txt";
+        env.readFile(new TextInputFormat(new Path(path)),
+                path, FileProcessingMode.PROCESS_ONCE, 1, BasicTypeInfo.STRING_TYPE_INFO)
+                .print();
+
+        env.execute("read file");
     }
 }
