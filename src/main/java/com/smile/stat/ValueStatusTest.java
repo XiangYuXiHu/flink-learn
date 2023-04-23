@@ -1,4 +1,4 @@
-package com.smile.stream;
+package com.smile.stat;
 
 import com.smile.domain.Event;
 import com.smile.source.MySource;
@@ -59,6 +59,9 @@ public class ValueStatusTest {
                     public void processElement(Event event, Context ctx, Collector<String> out) throws Exception {
                         Long count = countStatus.value();
                         countStatus.update(null == count ? 1L : count + 1L);
+                        /**
+                         *  时间戳注册
+                         */
                         if (null == timerStatus.value()) {
                             long ts = event.getTimeMillis() + 10 * 1000L;
                             ctx.timerService().registerEventTimeTimer(ts);
