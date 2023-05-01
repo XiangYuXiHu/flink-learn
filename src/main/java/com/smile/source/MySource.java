@@ -25,7 +25,7 @@ public class MySource implements SourceFunction<Event> {
         while (isRunning) {
             ctx.collect(new Event(users[random.nextInt(users.length)], urls[random.nextInt(urls.length)], System.currentTimeMillis()));
 
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 

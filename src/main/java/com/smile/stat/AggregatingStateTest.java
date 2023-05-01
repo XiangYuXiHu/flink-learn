@@ -1,4 +1,4 @@
-package com.smile.stream;
+package com.smile.stat;
 
 import com.smile.domain.Event;
 import com.smile.source.MySource;

@@ -1,4 +1,4 @@
-package com.smile.stream;
+package com.smile.stat;
 
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
