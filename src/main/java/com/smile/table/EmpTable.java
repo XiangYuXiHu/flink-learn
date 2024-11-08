@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.smile.domain.Emp;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+
+import static org.apache.flink.table.api.Expressions.$;
 
 /**
  * @Description
@@ -33,7 +34,12 @@ public class EmpTable {
          * 创建临时视图（临时表），第一个参数是注册的表名（[catalog.db.]tableName）,
          * 第二个参数可以是Tabe对象也可以是DataStream对象，第三个参数是指定的列字段名（可选）。
          */
-        tableEnvironment.createTemporaryView("t_tmp", table);
-        tableEnvironment.sqlQuery("select * from t_tmp").execute().print();
+//        tableEnvironment.createTemporaryView("t_tmp", table);
+//        tableEnvironment.sqlQuery("select * from t_tmp").execute().print();
+
+        table.where($("deptno").isEqual(10))
+                .select($("ename"),$("job")).execute().print();
+        table.groupBy($("deptno")).select($("deptno"),$("sal").avg().as("sal_avg"))
+                .execute().print();
     }
 }
